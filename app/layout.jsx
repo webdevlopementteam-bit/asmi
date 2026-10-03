@@ -8,6 +8,9 @@ export const metadata = {
   title: "Asmi Enterprises — Hand Wash, Cleaners & Air Fresheners Manufacturer, New Delhi",
   description:
     "Manufacturer & wholesaler of liquid hand wash, hand wash gel, shower gel, dish wash, toilet & tap cleaners, air fresheners and industrial chemicals. Bulk orders & instant quotes.",
+    icons:{
+      icon:"/logo.png"
+    }
 };
 
 export default function RootLayout({ children }) {
