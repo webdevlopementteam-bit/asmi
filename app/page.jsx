@@ -18,7 +18,6 @@ const CONTACT = {
   ],
   email: "asmienterprises39@gmail.com",
   address: "k-104, DSIIDC Industrial Area, Sector 5, Bawana, Delhi, 110039",
-  maps: "https://maps.google.com?q=28.68276800,77.26541300",
   gst: "07CLAPP6525Q1ZI",
   iec: "CLAPP6525Q",
   site: "https://www.asmi-enterprises.in/",
@@ -30,11 +29,16 @@ const SOCIALS = [
   { label: "Facebook", href: "https://www.facebook.com/asmienterprises39/", path: "M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.413c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.971H15.83c-1.491 0-1.956.93-1.956 1.886v2.264h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z" },
 ];
 
+// Map link + embed are built from the address, so updating the address moves the map too.
+CONTACT.maps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONTACT.address)}`;
+const MAP_EMBED = `https://maps.google.com/maps?q=${encodeURIComponent(CONTACT.address)}&z=15&output=embed`;
+
 const WHATSAPP_URL = `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent("Hi Asmi Enterprises, I'd like a quote for your products.")}`;
 
 const NAV = [
   { label: "About Us", href: "#about" },
   { label: "Products", href: "#products" },
+  { label: "Catalogue", href: "#catalogue" },
   { label: "Fragrances", href: "#fragrances" },
   { label: "Industries", href: "#industries" },
   { label: "Reviews", href: "#reviews" },
@@ -52,7 +56,7 @@ function Categories() {
   ];
 
   return (
-    <section className="bg-cream py-24 sm:py-32">
+    <section className="bg-cream py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHead eyebrow="Shop by category" title="One manufacturer. Every corner covered." sub="From the kitchen sink to the boiler room — 30+ product lines under one roof." />
         <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -75,14 +79,14 @@ function Categories() {
 }
 
 const PRODUCTS = [
-  { name: "Air Freshener Spray", brand: "ASMI", cat: "Home Care", img: "/products/air-freshener.png", note: "5 long-lasting fragrances", size: "Trigger spray", tint: "from-sky-100 to-violet-100" },
-  { name: "Tap Cleaner Disinfectant", brand: "ASMI", cat: "Bathroom", img: "/products/tap-cleaner.png", note: "10× ultra clean, lifts hard stains", size: "500 ml", tint: "from-blue-100 to-cyan-50" },
-  { name: "Dish Wash Gel", brand: "ASMI", cat: "Kitchen", img: "/products/dish-wash.png", note: "Power of 100 lemons, anti-smell", size: "250 ml · 500 ml", tint: "from-yellow-100 to-lime-50" },
-  { name: "Foaming Hand Wash – Neem Lemon", brand: "AMEPRODIN", cat: "Personal Care", img: "/products/hand-wash-5l.png", note: "Foam boosters, emollient formula", size: "5 Ltr", tint: "from-lime-100 to-yellow-50" },
-  { name: "Toilet Cleaner – Aqua", brand: "ASMI", cat: "Bathroom", img: "/products/toilet-cleaner-blue.png", note: "20× better clean, kills 99.9% germs", size: "5 Ltr", tint: "from-blue-100 to-indigo-50" },
-  { name: "Kitchen Chimney cleaner", brand: "ASMI", cat: "Kitchen", img: "/products/kitchen-chimney-cleaner.png", note: "Premium thick formula", size: "5 Ltr", tint: "from-indigo-100 to-slate-100" },
-  { name: "Shower Gel – Neem Tulsi", brand: "ASMI", cat: "Personal Care", img: "/products/shower-gel-neem.png", note: "Feel soft like a feather", size: "300 ml", tint: "from-emerald-100 to-teal-50" },
-  { name: "Shower Gel – Fresh Peach", brand: "AMEPRODIN", cat: "Personal Care", img: "/products/shower-gel-peach.png", note: "Moisturizing, foam boosted", size: "5 Ltr", tint: "from-orange-100 to-rose-50" },
+  { name: "Air Freshener Spray", brand: "ASMI", cat: "Home Care", img: "/products/air-freshener.webp", note: "5 long-lasting fragrances", size: "Trigger spray", tint: "from-sky-100 to-violet-100" },
+  { name: "Tap Cleaner Disinfectant", brand: "ASMI", cat: "Bathroom", img: "/products/tap-cleaner.webp", note: "10× ultra clean, lifts hard stains", size: "500 ml", tint: "from-blue-100 to-cyan-50" },
+  { name: "Dish Wash Gel", brand: "ASMI", cat: "Kitchen", img: "/products/dish-wash.webp", note: "Power of 100 lemons, anti-smell", size: "250 ml · 500 ml", tint: "from-yellow-100 to-lime-50" },
+  { name: "Foaming Hand Wash – Neem Lemon", brand: "AMEPRODIN", cat: "Personal Care", img: "/products/hand-wash-5l.webp", note: "Foam boosters, emollient formula", size: "5 Ltr", tint: "from-lime-100 to-yellow-50" },
+  { name: "Toilet Cleaner – Aqua", brand: "ASMI", cat: "Bathroom", img: "/products/toilet-cleaner-blue.webp", note: "20× better clean, kills 99.9% germs", size: "5 Ltr", tint: "from-blue-100 to-indigo-50" },
+  { name: "Kitchen Chimney cleaner", brand: "ASMI", cat: "Kitchen", img: "/products/kitchen-chimney-cleaner.webp", note: "Premium thick formula", size: "5 Ltr", tint: "from-indigo-100 to-slate-100" },
+  { name: "Shower Gel – Neem Tulsi", brand: "ASMI", cat: "Personal Care", img: "/products/shower-gel-neem.webp", note: "Feel soft like a feather", size: "300 ml", tint: "from-emerald-100 to-teal-50" },
+  { name: "Shower Gel – Fresh Peach", brand: "AMEPRODIN", cat: "Personal Care", img: "/products/shower-gel-peach.webp", note: "Moisturizing, foam boosted", size: "5 Ltr", tint: "from-orange-100 to-rose-50" },
 ];
 
 // Fragrance names are placeholders — rename to match your actual variants.
@@ -94,14 +98,121 @@ const FRAGRANCES = [
   { name: "Lavender Dream", color: "#8B6CF0", glow: "rgba(139,108,240,.45)", notes: "French lavender · Violet · Vanilla", mood: "Relaxing evenings, hotel rooms and guest spaces." },
 ];
 
-const FULL_RANGE = [
-  "Liquid Hand Wash", "Hand Wash Gel", "Tap Cleaner", "Toilet Cleaner Concentrate", "Toilet Cleaners",
-  "Shower Gel", "Liquid Floor Cleaner", "Kitchen Cleaner", "Liquid Detergent", "Boiler Chemicals",
-  "Car Polish", "Dishwash Liquid", "Cooling Tower Chemicals", "Air Freshener", "Bathroom Cleaner",
-  "Liquid Glass Cleaner", "Tile Cleaner", "Glass Cleaner Concentrate", "Floor Cleaner Concentrate",
-  "Liquid Soaps", "Glass Cleaner", "PH Booster Chemical", "Fire Treatment Chemicals", "Descaling Chemicals",
-  "Hand Sanitizer", "Black Phenyl", "Automotive Cleaners", "Industrial Chemical", "Room Freshener", "Phenyl Concentrate",
+/* Full catalogue from the Asmi housekeeping & industrial brochures. Images live in /public/catalog. */
+
+const SOAP_SCENTS = ["Lemon", "Pineapple", "Rose", "Lavender", "Peach", "Sandal", "Aloe Vera", "Neem", "Aqua"];
+const FLOOR_SCENTS = ["Lemon", "Rose", "Lavender", "Neem"];
+const AIR_SCENTS = ["Lemon", "Pineapple", "Lemon Grass", "Rose", "Rose Oudh", "Lavender", "Peach", "Sandal", "Mr. X", "Oudh", "Jasmine", "Mogra", "Citro", "Hugo Boss", "Aqua", "Spice Man"];
+const IND_PACKS = ["5 kg", "25 kg", "50 kg"];
+
+const CATALOG = [
+  {
+    id: "housekeeping",
+    label: "Housekeeping",
+    blurb: "Ready-to-use cleaners in retail bottles and 5 L cans.",
+    cats: [
+      { id: "personal", label: "Personal Care", icon: "hand", items: [
+        { name: "Hand Wash", img: "hand-wash", alt: "hand-wash-5l", packs: ["250 ml", "500 ml", "1 L", "5 L"], scents: SOAP_SCENTS },
+        { name: "Foam Hand Wash", img: "foam-hand-wash", packs: ["250 ml", "1 L"] },
+        { name: "Shower Gel", img: "shower-gel", alt: "shower-gel-5l", packs: ["250 ml", "500 ml", "5 L"], scents: SOAP_SCENTS },
+        { name: "Shampoo", img: "shampoo-5l", packs: ["5 L"], scents: SOAP_SCENTS },
+      ] },
+      { id: "kitchen", label: "Kitchen & Laundry", icon: "utensils", items: [
+        { name: "Dish Wash", img: "dish-wash", packs: ["250 ml", "500 ml"] },
+        { name: "Liquid Detergent", img: "liquid-detergent", alt: "liquid-detergent-5l", packs: ["500 ml", "1 L", "5 L"] },
+        { name: "Fabric Whitener", img: "fabric-whitener", alt: "fabric-whitener-5l", packs: ["500 ml", "5 L"] },
+      ] },
+      { id: "toilet", label: "Toilet & Bathroom", icon: "bath", items: [
+        { name: "Toilet Cleaner", img: "toilet-cleaner", alt: "toilet-cleaner-5l", packs: ["250 ml", "500 ml", "1 L", "5 L"] },
+        { name: "Hard Stain Toilet Cleaner", img: "hard-stain-toilet-cleaner-5l", packs: ["5 L"] },
+        { name: "Toilet Bleach", img: "toilet-bleach-5l", packs: ["5 L"] },
+        { name: "Bathroom Cleaner", img: "bathroom-cleaner", alt: "bathroom-cleaner-5l", packs: ["500 ml", "1 L", "5 L"] },
+        { name: "Tap Cleaner", img: "tap-cleaner", alt: "tap-cleaner-5l", packs: ["500 ml", "5 L"] },
+        { name: "Tile Cleaner", img: "tile-cleaner", alt: "tile-cleaner-5l", packs: ["500 ml", "1 L", "5 L"] },
+      ] },
+      { id: "floor", label: "Floor Care", icon: "home", items: [
+        { name: "Floor Cleaner", img: "floor-cleaner-5l", alt: "floor-cleaner", altLabel: "All sizes", packs: ["500 ml", "1 L", "2 L", "5 L"], scents: FLOOR_SCENTS },
+        { name: "White Floor Cleaner (Phenyl)", img: "white-phenyl", alt: "white-phenyl-5l", packs: ["1 L", "5 L"] },
+        { name: "Black Floor Cleaner (Black Phenyl)", img: "black-phenyl", alt: "black-phenyl-5l", packs: ["1 L", "5 L"] },
+        { name: "Phenyl Concentrate", img: "phenyl-concentrate", packs: ["200 ml", "500 ml", "1 L"] },
+      ] },
+      { id: "surface", label: "Glass, Polish & Air", icon: "sparkles", items: [
+        { name: "Glass Cleaner", img: "glass-cleaner", packs: ["500 ml"] },
+        { name: "Steel Polish", img: "steel-polish", alt: "steel-polish-5l", packs: ["500 ml", "1 L", "5 L"] },
+        { name: "Wood Polish", img: "wood-polish", alt: "wood-polish-5l", packs: ["500 ml", "1 L", "5 L"] },
+        { name: "Air Freshener", img: "air-freshener", alt: "air-freshener-5l", packs: ["200 ml", "500 ml", "5 L"], scents: AIR_SCENTS },
+      ] },
+      { id: "car", label: "Car Care", icon: "car", items: [
+        { name: "Car Polish", img: "car-polish", alt: "car-polish-5l", packs: ["500 ml", "1 L", "5 L"] },
+        { name: "Car Foam Wash", img: "car-foam-wash", packs: ["1 L"] },
+        { name: "Snow Foam Wash", img: "snow-foam-wash-5l", packs: ["5 L"] },
+      ] },
+    ],
+  },
+  {
+    id: "concentrates",
+    label: "Concentrates",
+    blurb: "50 L concentrates — dilute with DM water for the best cost per litre.",
+    cats: [
+      { id: "conc", label: "50 L Concentrates", icon: "drop", items: [
+        { code: "A-6", name: "Toilet Cleaner Concentrate", img: "toilet-cleaner-concentrate", packs: ["50 L"], note: "Dilution 1:4" },
+        { code: "AH-1", name: "Hand Wash Concentrate", img: "hand-wash-concentrate", packs: ["50 L"], note: "Dilution 1:3" },
+        { code: "A-3", name: "Glass Cleaner Concentrate", img: "glass-cleaner-concentrate", packs: ["50 L"], note: "Dilution 1:25" },
+        { code: "A-11", name: "Dish Wash Concentrate", img: "dish-wash-concentrate", packs: ["50 L"], note: "Dilution 1:3" },
+        { code: "A-8", name: "Liquid Detergent Concentrate", img: "liquid-detergent-concentrate", packs: ["50 L"], note: "Dilution 1:4" },
+        { code: "A-2", name: "Floor Cleaner Concentrate", img: "floor-cleaner-concentrate", packs: ["50 L"], note: "Dilution 1:7" },
+        { code: "A-7", name: "Metal Cleaner Concentrate", img: "metal-cleaner-concentrate", packs: ["50 L"], note: "Dilution 1:3" },
+        { code: "A-4", name: "Polish Concentrate", img: "polish-concentrate", packs: ["50 L"], note: "Dilution 1:2" },
+        { code: "A-10", name: "Phenyl Concentrate", img: "phenyl-concentrate-50l", packs: ["50 L"], note: "Dilution 1:25 – 1:35" },
+      ] },
+    ],
+  },
+  {
+    id: "industrial",
+    label: "Industrial Chemicals",
+    blurb: "Water treatment and process chemicals for boilers, cooling towers and RO plants.",
+    cats: [
+      { id: "boiler", label: "Boiler Chemicals", icon: "factory", items: [
+        { code: "1001", name: "Boiler pH Booster", img: "1001", packs: IND_PACKS },
+        { code: "1002", name: "Sludge Conditioner", img: "1002", packs: IND_PACKS },
+        { code: "1003", name: "Oxygen Scavenger", img: "1003", packs: IND_PACKS },
+        { code: "1005", name: "Multifunctional – Soft Water", img: "1005", packs: IND_PACKS },
+        { code: "1006", name: "Multifunctional – Raw Water", img: "1006", packs: IND_PACKS },
+      ] },
+      { id: "cooling", label: "Cooling Tower", icon: "drop", items: [
+        { code: "2001", name: "Multifunctional – Soft Water", img: "2001", packs: IND_PACKS },
+        { code: "2002", name: "Multifunctional – Raw Water", img: "2002", packs: IND_PACKS },
+        { code: "2003", name: "Anti-Scalant", img: "2003", packs: IND_PACKS, note: "Keeps hardness salts in suspension to stop scale. 10–50 ppm." },
+        { code: "2004", name: "Anti-Corrosion", img: "2004", packs: IND_PACKS, note: "Forms a protective film on steel, copper and aluminium. 20–100 ppm." },
+        { code: "2005", name: "Alkalinity Reducer", img: "2005", packs: IND_PACKS },
+        { code: "2006", name: "Dispersant", img: "2006", packs: IND_PACKS },
+        { code: "2008", name: "Biocide – Stable Chlorine Based", img: "2008", packs: IND_PACKS },
+        { code: "2010", name: "Biocide – Oxidizing", img: "2010", packs: IND_PACKS },
+        { code: "2012", name: "Bio-Dispersant", img: "2012", packs: IND_PACKS, note: "Controls biofilm, algae and microbial deposits. 10–50 ppm." },
+        { code: "2014", name: "Biocide – Non-Oxidizing", img: "2014", packs: IND_PACKS },
+      ] },
+      { id: "descaling", label: "Descaling", icon: "flask", items: [
+        { code: "3001", name: "De-Scale – Liquid", img: "3001", packs: IND_PACKS },
+        { code: "3002", name: "De-Scale – Silica", img: "3002", packs: IND_PACKS },
+        { code: "3004", name: "Passivation – Alkaline", img: "3004", packs: IND_PACKS, note: "Cleans fouling, then forms a protective passivation layer. 1–2% solution." },
+        { code: "3005", name: "Boil Out", img: "3005", packs: IND_PACKS },
+      ] },
+      { id: "ro", label: "RO Plant", icon: "shield", items: [
+        { code: "5001", name: "RO Anti-Scalant", img: "5001", packs: IND_PACKS },
+        { code: "5003", name: "RO De-Scalant", img: "5003", packs: IND_PACKS, note: "Removes calcium, magnesium and iron scale from membranes. 1–2% solution." },
+        { code: "5004", name: "RO Descaling – Alkaline", img: "5004", packs: IND_PACKS, note: "Lifts organic, oily and microbial fouling from membranes. 1–2% solution." },
+      ] },
+      { id: "fire", label: "Fire Treatment", icon: "sparkles", items: [
+        { code: "6001", name: "Combustion Improver – Bagasse / Rice Husk / Wood", img: "6001", packs: IND_PACKS, note: "Better burn, less clinker. 50–200 g per ton of fuel." },
+        { code: "6003", name: "Combustion Improver – Coal", img: "6003", packs: IND_PACKS, note: "Reduces unburnt carbon and clinker. 50–200 g per ton of coal." },
+        { code: "6004", name: "Combustion Improver – Pet Coke", img: "6004", packs: IND_PACKS, note: "Improves flame stability and heat transfer. 50–200 ml per ton." },
+      ] },
+    ],
+  },
 ];
+
+const CATALOG_COUNT = CATALOG.reduce((n, g) => n + g.cats.reduce((m, c) => m + c.items.length, 0), 0);
+
 
 const FAQS = [
   { q: "Do you supply in bulk for businesses?", a: "Yes. Asmi Enterprises is a manufacturer and wholesaler, so we supply retail-ready bottles as well as 5 L, 50 L and concentrate packs for hotels, hospitals, facility managers, distributors and institutions." },
@@ -180,12 +291,12 @@ function Eyebrow({ children, dark = false }) {
   );
 }
 
-function SectionHead({ eyebrow, title, sub, dark = false, center = true, plain = false, wide = false, titleClassName = "" }) {
+function SectionHead({ eyebrow, title, sub, dark = false, center = true, plain = false, wide = false, titleClassName = "", subClassName = "" }) {
   return (
     <div data-reveal className={`${center ? "mx-auto text-center" : ""} ${wide ? "" : "max-w-2xl"}`}>
       <Eyebrow dark={dark}>{eyebrow}</Eyebrow>
       <h2 className={`mt-5 leading-[1.05] tracking-tight ${titleClassName || "text-4xl sm:text-5xl"} ${plain ? "font-sans font-bold" : "font-display"} ${dark ? "text-white" : "text-ink"}`}>{title}</h2>
-      {sub && <p className={`mt-4 text-lg leading-relaxed ${dark ? "text-white/65" : "text-ink/60"}`}>{sub}</p>}
+      {sub && <p className={`mt-4 text-lg leading-relaxed ${dark ? "text-white/65" : "text-ink/60"} ${subClassName}`}>{sub}</p>}
     </div>
   );
 }
@@ -200,25 +311,38 @@ function WhatsAppIcon({ className = "h-5 w-5" }) {
 
 function FloatingContact() {
   return (
-    <div className="fixed bottom-5 right-4 z-50 flex flex-col items-end gap-3 sm:bottom-8 sm:right-8">
-      <a href={`tel:${CONTACT.phone}`} aria-label={`Call ${CONTACT.phoneDisplay}`} className="group flex items-center gap-3">
-        <span className="pointer-events-none hidden translate-x-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-ink opacity-0 shadow-lg transition group-hover:translate-x-0 group-hover:opacity-100 sm:block">
+    <>
+      {/* Desktop: WhatsApp bottom-left, Call bottom-right */}
+      <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp" className="group fixed bottom-8 left-8 z-50 hidden items-center gap-3 md:flex">
+        <span className="relative grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-xl shadow-green-600/40 transition group-hover:scale-110">
+          <span className="absolute inset-0 animate-ping rounded-full bg-[#25D366]/50 [animation-duration:2s]" />
+          <WhatsAppIcon className="relative h-7 w-7" />
+        </span>
+        <span className="pointer-events-none -translate-x-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-ink opacity-0 shadow-lg transition group-hover:translate-x-0 group-hover:opacity-100">
+          Chat on WhatsApp
+        </span>
+      </a>
+      <a href={`tel:${CONTACT.phone}`} aria-label={`Call ${CONTACT.phoneDisplay}`} className="group fixed bottom-8 right-8 z-50 hidden items-center gap-3 md:flex">
+        <span className="pointer-events-none translate-x-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-ink opacity-0 shadow-lg transition group-hover:translate-x-0 group-hover:opacity-100">
           Call {CONTACT.phoneDisplay}
         </span>
         <span className="grid h-14 w-14 place-items-center rounded-full bg-gradient-to-br from-aqua to-aqua-deep text-white shadow-xl shadow-aqua-deep/40 transition group-hover:scale-110">
           <Icon name="phone" className="h-6 w-6" />
         </span>
       </a>
-      <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp" className="group flex items-center gap-3">
-        <span className="pointer-events-none hidden translate-x-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-ink opacity-0 shadow-lg transition group-hover:translate-x-0 group-hover:opacity-100 sm:block">
-          Chat on WhatsApp
-        </span>
-        <span className="relative grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-xl shadow-green-600/40 transition group-hover:scale-110">
-          <span className="absolute inset-0 animate-ping rounded-full bg-[#25D366]/50 [animation-duration:2s]" />
-          <WhatsAppIcon className="relative h-7 w-7" />
-        </span>
-      </a>
-    </div>
+
+      {/* Mobile: full-width bar, two 50% buttons */}
+      <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 shadow-[0_-10px_30px_-12px_rgba(11,27,58,.35)] md:hidden">
+        <a href={`tel:${CONTACT.phone}`} aria-label={`Call ${CONTACT.phoneDisplay}`} className="flex items-center justify-center gap-2 bg-gradient-to-br from-aqua to-aqua-deep py-3.5 pb-[calc(0.875rem+env(safe-area-inset-bottom))] text-[15px] font-semibold text-white active:brightness-95">
+          <Icon name="phone" className="h-5 w-5" /> Call Now
+        </a>
+        <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp" className="flex items-center justify-center gap-2 bg-[#25D366] py-3.5 pb-[calc(0.875rem+env(safe-area-inset-bottom))] text-[15px] font-semibold text-white active:brightness-95">
+          <WhatsAppIcon className="h-5 w-5" /> WhatsApp
+        </a>
+      </div>
+      {/* Keeps the footer from hiding behind the mobile bar */}
+      <div aria-hidden="true" className="h-[calc(3.25rem+env(safe-area-inset-bottom))] bg-ink md:hidden" />
+    </>
   );
 }
 
@@ -246,7 +370,7 @@ function Navbar() {
       <nav className={`transition-all duration-500 ${scrolled ? "bg-cream/80 shadow-[0_10px_40px_-20px_rgba(11,27,58,.35)] backdrop-blur-xl" : "bg-transparent"}`}>
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
           <a href="#top" className="flex items-center" aria-label="Asmi Enterprises home">
-            <Image src="/logo.png" alt="Asmi Enterprises" width={2109} height={745} priority className="h-10 w-auto sm:h-12" />
+            <Image src="/logo.webp" alt="Asmi Enterprises" width={600} height={212} priority className="h-10 w-auto sm:h-12" />
           </a>
 
           <ul className="hidden items-center gap-1 lg:flex">
@@ -286,13 +410,96 @@ function Navbar() {
 
 /* ───────────────────────────── 2. Hero ───────────────────────────── */
 
+const BANNERS = [
+  { desktop: "/products/desktopbanner.webp", mobile: "/products/mobilebanner.webp", alt: "Asmi Enterprises cleaning products" },
+  { desktop: "/products/desktopbannertwo.webp", mobile: "/products/mobilebannertwo.webp", alt: "Asmi Enterprises product range" },
+];
+
 function Hero() {
+  const count = BANNERS.length;
+  // Slides are [last clone, ...banners, first clone] so the track can keep moving forward forever.
+  const slides = count > 1 ? [BANNERS[count - 1], ...BANNERS, BANNERS[0]] : BANNERS;
+  const [pos, setPos] = useState(count > 1 ? 1 : 0);
+  const [animate, setAnimate] = useState(true);
+  const [paused, setPaused] = useState(false);
+  const [touchX, setTouchX] = useState(null);
+  const active = count > 1 ? (pos - 1 + count) % count : 0;
+
+  const go = (n) => {
+    if (n < 0 || n > count + 1) return;
+    setAnimate(true);
+    setPos(n);
+  };
+
+  // Autoplay every 3 seconds, always forward.
+  useEffect(() => {
+    if (paused || count < 2) return;
+    const id = setTimeout(() => go(pos + 1), 3000);
+    return () => clearTimeout(id);
+  }, [pos, paused, count]);
+
+  // After sliding onto a clone, jump to the matching real slide without animation.
+  const onTransitionEnd = () => {
+    if (pos === count + 1) {
+      setAnimate(false);
+      setPos(1);
+    } else if (pos === 0) {
+      setAnimate(false);
+      setPos(count);
+    }
+  };
+
+  // Re-enable animation on the frame after a silent jump.
+  useEffect(() => {
+    if (animate) return;
+    const id = requestAnimationFrame(() => requestAnimationFrame(() => setAnimate(true)));
+    return () => cancelAnimationFrame(id);
+  }, [animate]);
+
   return (
-    <section>
-      <picture>
-        <source media="(max-width: 767px)" srcSet="/products/mobilebanner.png" />
-        <img src="/products/desktopbanner.png" alt="" className="block h-auto w-full" />
-      </picture>
+    <section
+      aria-roledescription="carousel"
+      aria-label="Asmi banners"
+      className="group relative overflow-hidden"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onTouchStart={(e) => setTouchX(e.touches[0].clientX)}
+      onTouchEnd={(e) => {
+        if (touchX === null) return;
+        const dx = e.changedTouches[0].clientX - touchX;
+        if (Math.abs(dx) > 40) go(pos + (dx < 0 ? 1 : -1));
+        setTouchX(null);
+      }}
+    >
+      <div
+        className={`flex ${animate ? "transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]" : ""}`}
+        style={{ transform: `translateX(-${pos * 100}%)` }}
+        onTransitionEnd={onTransitionEnd}
+      >
+        {slides.map((b, i) => (
+          <picture key={i} className="w-full shrink-0" aria-hidden={i !== pos}>
+            <source media="(max-width: 767px)" srcSet={b.mobile} />
+            <img src={b.desktop} alt={b.alt} loading={i === 1 || count === 1 ? "eager" : "lazy"} className="block h-auto w-full select-none" draggable={false} />
+          </picture>
+        ))}
+      </div>
+
+      {count > 1 && (
+        <>
+          <button onClick={() => go(pos - 1)} aria-label="Previous banner" className="absolute left-4 top-1/2 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/80 text-ink opacity-0 shadow-lg backdrop-blur transition hover:bg-white group-hover:opacity-100 md:grid">
+            <Icon name="arrow" className="h-5 w-5 rotate-180" />
+          </button>
+          <button onClick={() => go(pos + 1)} aria-label="Next banner" className="absolute right-4 top-1/2 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/80 text-ink opacity-0 shadow-lg backdrop-blur transition hover:bg-white group-hover:opacity-100 md:grid">
+            <Icon name="arrow" className="h-5 w-5" />
+          </button>
+
+          <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-ink/30 px-2.5 py-1.5 backdrop-blur sm:bottom-5">
+            {BANNERS.map((b, i) => (
+              <button key={b.desktop} onClick={() => go(i + 1)} aria-label={`Show banner ${i + 1}`} className={`h-2 rounded-full transition-all duration-500 ${i === active ? "w-7 bg-lemon" : "w-2 bg-white/70 hover:bg-white"}`} />
+            ))}
+          </div>
+        </>
+      )}
     </section>
   );
 }
@@ -303,11 +510,11 @@ function Marquee() {
   const items = ["Hand Wash", "Shower Gel", "Dish Wash Gel", "Toilet Cleaner", "Tap Cleaner", "Air Freshener", "Floor Cleaner", "Glass Cleaner", "Liquid Detergent", "Black Phenyl", "Car Polish", "Boiler Chemicals"];
   const row = [...items, ...items];
   return (
-    <section className="relative -rotate-1 overflow-hidden bg-ink py-5">
-      <div className="flex w-max animate-marquee gap-10">
+    <section className="relative overflow-hidden bg-ink py-2.5 sm:py-3">
+      <div className="flex w-max animate-marquee gap-6 sm:gap-8">
         {row.map((t, i) => (
-          <span key={i} className="flex items-center gap-10 font-display text-2xl text-white/90 sm:text-3xl">
-            {t} <Icon name="sparkles" className="h-5 w-5 text-lemon" />
+          <span key={i} className="flex items-center gap-6 font-display text-base leading-none text-white/90 sm:gap-8 sm:text-xl">
+            {t} <Icon name="sparkles" className="h-3.5 w-3.5 text-lemon sm:h-4 sm:w-4" />
           </span>
         ))}
       </div>
@@ -315,7 +522,7 @@ function Marquee() {
   );
 }
 
-function CounterStat({ value, suffix = "", label }) {
+function CounterStat({ value, suffix = "", label, icon, card, tile, num, index = 0 }) {
   const [count, setCount] = useState(0);
   const [element, setElement] = useState(null);
 
@@ -343,26 +550,43 @@ function CounterStat({ value, suffix = "", label }) {
   }, [element, value]);
 
   return (
-    <div ref={setElement} className="border-ink/10 px-4 text-center first:border-l-0 sm:border-l">
-      <p className="font-display text-3xl text-ink sm:text-4xl">{count}{suffix}</p>
-      <p className="mt-1 text-xs font-semibold uppercase tracking-widest text-ink/50">{label}</p>
+    <div
+      ref={setElement}
+      data-reveal
+      style={{ transitionDelay: `${index * 90}ms` }}
+      className={`group relative overflow-hidden rounded-3xl bg-gradient-to-br p-5 ring-1 ring-white transition duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_50px_-28px_rgba(11,27,58,.35)] sm:p-6 ${card}`}
+    >
+      {/* Big faint icon in the corner */}
+      <Icon name={icon} className="pointer-events-none absolute -bottom-5 -right-5 hidden h-28 w-28 opacity-[0.07] sm:block transition duration-700 group-hover:-rotate-12 group-hover:scale-110 sm:h-32 sm:w-32" />
+
+      <div className="relative flex items-center gap-3 sm:gap-4">
+        <span className={`relative grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br text-white shadow-lg transition duration-500 group-hover:scale-110 group-hover:rotate-6 sm:h-14 sm:w-14 ${tile}`}>
+          <span className="absolute inset-0 animate-ping rounded-2xl bg-white/30 opacity-0 group-hover:opacity-100 [animation-duration:1.6s]" />
+          <Icon name={icon} className="relative h-5 w-5 sm:h-6 sm:w-6" />
+        </span>
+        <p className={`bg-gradient-to-br bg-clip-text font-display text-3xl leading-none text-transparent tabular-nums sm:text-[2.6rem] ${num}`}>
+          {count}{suffix}
+        </p>
+      </div>
+      <p className="relative mt-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/55 sm:text-xs">{label}</p>
     </div>
   );
 }
 
 function Stats() {
   const stats = [
-    { value: 30, suffix: "+", label: "Products" },
-    { value: 500, suffix: "+", label: "Cities served" },
-    { value: 97, suffix: "%", label: "Repeat orders" },
-    { value: 100, suffix: "%", label: "safe & effective" },
+    { value: 30, suffix: "+", label: "Products", icon: "flask", card: "from-sky-50 to-cyan-50", tile: "from-sky-400 to-aqua-deep shadow-sky-400/40", num: "from-sky-500 to-aqua-deep" },
+    { value: 500, suffix: "+", label: "Cities served", icon: "pin", card: "from-violet-50 to-fuchsia-50", tile: "from-violet-400 to-fuchsia-500 shadow-violet-400/40", num: "from-violet-500 to-fuchsia-500" },
+    { value: 97, suffix: "%", label: "Repeat orders", icon: "award", card: "from-amber-50 to-orange-50", tile: "from-amber-400 to-orange-500 shadow-amber-400/40", num: "from-amber-500 to-orange-500" },
+    { value: 100, suffix: "%", label: "Safe & Pure", icon: "shield", card: "from-emerald-50 to-teal-50", tile: "from-emerald-400 to-teal-500 shadow-emerald-400/40", num: "from-emerald-500 to-teal-600" },
   ];
 
   return (
-    <section aria-label="Asmi at a glance" className="bg-white py-10 sm:py-12">
-      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-y-8 px-4 sm:px-6 lg:grid-cols-4">
-        {stats.map((stat) => (
-          <CounterStat key={stat.label} {...stat} />
+    <section aria-label="Asmi at a glance" className="relative overflow-hidden bg-white py-10 sm:py-14">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgba(11,27,58,.06)_1px,transparent_1px)] [background-size:20px_20px] [mask-image:linear-gradient(to_bottom,transparent,black_30%,black_70%,transparent)]" />
+      <div className="relative mx-auto grid max-w-7xl grid-cols-2 gap-3 px-4 sm:gap-5 sm:px-6 lg:grid-cols-4">
+        {stats.map((stat, i) => (
+          <CounterStat key={stat.label} index={i} {...stat} />
         ))}
       </div>
     </section>
@@ -383,53 +607,55 @@ function About() {
     { label: "GSTIN", value: CONTACT.gst },
   ];
 
+  const photo = (
+    <div data-reveal className="relative">
+      <div className="absolute -inset-3 hidden rounded-[2.25rem] border border-ink/10 lg:block" />
+      <div className="relative aspect-[3/2] overflow-hidden shadow-[0_50px_100px_-40px_rgba(11,27,58,.55)] lg:rounded-[2rem] lg:ring-1 lg:ring-ink/10">
+        <Image src="/aboutimage.webp" alt="Asmi Enterprises manufacturing unit in New Delhi" fill sizes="(min-width:1024px) 50vw, 100vw" className="object-cover transition duration-[1.5s] hover:scale-105" />
+      </div>
+
+      {/* Floating badge: year */}
+      <div className="absolute bottom-0 left-4 translate-y-1/2 rounded-lg bg-ink px-3.5 py-2.5 text-white shadow-2xl ring-4 ring-cream sm:left-6 sm:px-5 sm:py-4 lg:bottom-auto lg:-left-6 lg:-top-6 lg:translate-y-0 lg:ring-0 lg:rounded-xl lg:bg-ink lg:px-6 lg:py-5">
+        <p className="text-[9px] font-semibold uppercase tracking-[0.3em] text-white/60 lg:text-[10px]">Since</p>
+        <p className="font-display text-2xl leading-none text-lemon sm:text-3xl lg:text-4xl">2017</p>
+      </div>
+
+      {/* Floating badge: verified */}
+      <div className="absolute -bottom-6 -right-6 hidden items-center gap-3 rounded-2xl bg-white/95 px-4 py-3 shadow-xl backdrop-blur lg:flex">
+        <span className="grid h-10 w-10 place-items-center rounded-xl bg-emerald-50 text-emerald-600">
+          <Icon name="shield" className="h-5 w-5" />
+        </span>
+        <span className="leading-tight">
+          <span className="block text-sm font-semibold text-ink">GST registered</span>
+          <span className="block text-xs text-ink/55">Manufacturer & wholesaler</span>
+        </span>
+      </div>
+    </div>
+  );
+
   return (
     <section id="about" className="relative overflow-hidden bg-cream py-15">
       <div className="pointer-events-none absolute -right-40 top-10 h-[32rem] w-[32rem] rounded-full bg-aqua/10 blur-3xl" />
       <div className="pointer-events-none absolute -left-40 bottom-0 h-[28rem] w-[28rem] rounded-full bg-lemon/15 blur-3xl" />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="grid items-center gap-16 lg:grid-cols-2 lg:gap-20">
-          {/* Left: factory image */}
-          <div data-reveal className="relative">
-            <div className="absolute -inset-3 hidden rounded-[2.75rem] border border-ink/10 sm:block lg:-inset-4" />
-            <div className="relative aspect-square overflow-hidden rounded-[2.5rem] shadow-[0_50px_100px_-40px_rgba(11,27,58,.55)] ring-1 ring-ink/10">
-              <Image src="/aboutimage.png" alt="Asmi Enterprises manufacturing unit in New Delhi" fill sizes="(min-width:1024px) 50vw, 100vw" className="object-cover transition duration-[1.5s] hover:scale-105" />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 via-ink/40 to-transparent p-5 pt-16 sm:p-8 sm:pt-28">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-lemon sm:text-xs">Our facility</p>
-                <p className="mt-1 font-display text-lg leading-snug text-white sm:text-2xl">Manufacturing unit · Brahampuri, New Delhi</p>
-              </div>
-            </div>
-
-            {/* Floating badge: year */}
-            <div className="absolute left-3 top-3 rounded-2xl bg-ink/90 px-3.5 py-2.5 text-white shadow-2xl backdrop-blur sm:-left-6 sm:top-10 sm:rounded-3xl sm:bg-ink sm:px-6 sm:py-5">
-              <p className="text-[9px] font-semibold uppercase tracking-[0.3em] text-white/60 sm:text-[10px]">Since</p>
-              <p className="font-display text-2xl leading-none text-lemon sm:text-4xl">2017</p>
-            </div>
-
-            {/* Floating badge: verified */}
-            <div className="absolute -right-6 bottom-32 hidden items-center gap-3 rounded-2xl bg-white/95 px-4 py-3 shadow-xl backdrop-blur sm:flex">
-              <span className="grid h-10 w-10 place-items-center rounded-xl bg-emerald-50 text-emerald-600">
-                <Icon name="shield" className="h-5 w-5" />
-              </span>
-              <span className="leading-tight">
-                <span className="block text-sm font-semibold text-ink">GST registered</span>
-                <span className="block text-xs text-ink/55">Manufacturer & wholesaler</span>
-              </span>
-            </div>
-          </div>
+      <div className="relative mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-8">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
+          {/* Left: factory image (desktop) */}
+          <div className="hidden lg:block">{photo}</div>
 
           {/* Right: story */}
           <div>
             <div data-reveal>
               <Eyebrow>About Asmi</Eyebrow>
-              <h2 className="mt-4 font-display text-4xl leading-[1.05] tracking-tight text-ink sm:text-5xl">
-                Built on trust <span className="italic text-aqua-deep">since 2017.</span>
+              <h2 className="mt-4 whitespace-nowrap font-display text-[clamp(1.5rem,7vw,3rem)] leading-[1.05] tracking-tight text-ink lg:text-[clamp(1.75rem,2.9vw,3rem)]">
+                Built on trust <span className="text-aqua-deep">since 2017.</span>
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-ink/80">
                 Asmi Enterprises makes and supplies cleaning products for homes, for personal care and for
                 industry, from our base in New Delhi.
               </p>
+              {/* Factory image (mobile & tablet: right after the intro line) */}
+              <div className="mt-8 mb-14 lg:hidden">{photo}</div>
               <p className="mt-3 leading-relaxed text-ink/60">
                 We work to meet our customers’ expectations with quality products, ethical business
                 practices and transparent transactions, building healthy relationships along the way.
@@ -478,7 +704,7 @@ function About() {
         </div>
 
         {/* Facts strip */}
-        <dl data-reveal className="mt-20 grid grid-cols-2 overflow-hidden rounded-3xl bg-ink text-white lg:grid-cols-4">
+        <dl data-reveal className="mt-12 grid grid-cols-2 overflow-hidden rounded-3xl bg-ink text-white lg:grid-cols-4">
           {facts.map((f, i) => (
             <div key={f.label} className={`px-6 py-7 sm:px-8 ${i % 2 ? "border-l border-white/10" : ""} ${i > 1 ? "border-t border-white/10 lg:border-t-0" : ""} ${i === 2 ? "lg:border-l" : ""}`}>
               <dt className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/50">{f.label}</dt>
@@ -495,9 +721,9 @@ function About() {
 
 function Products() {
   return (
-    <section id="products" className="bg-white py-24 sm:py-32">
+    <section id="products" className="bg-white py:17 md:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <SectionHead wide titleClassName="whitespace-nowrap text-[clamp(1rem,4.6vw,3rem)]" eyebrow="Featured products" title="Crafted to clean. Designed to delight." sub="Retail-ready packs and bulk cans from the ASMI and AMEPRODIN lines." />
+        <SectionHead wide titleClassName="whitespace-nowrap text-[clamp(1rem,4.6vw,3rem)]" eyebrow="Our bestsellers" title="Crafted to clean. Designed to delight." subClassName="hidden sm:block" sub="Retail-ready packs and bulk cans from the ASMI and AMEPRODIN lines." />
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {PRODUCTS.map((p) => (
@@ -517,6 +743,202 @@ function Products() {
                 </div>
               </div>
             </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ───────────────────────────── 5b. Full catalogue ───────────────────────────── */
+
+// Same soft gradients as the Bestsellers cards, rotated so neighbouring cards differ.
+const CARD_TINTS = [
+  "from-sky-100 to-violet-100",
+  "from-yellow-100 to-lime-50",
+  "from-rose-100 to-orange-50",
+  "from-emerald-100 to-teal-50",
+  "from-blue-100 to-cyan-50",
+  "from-orange-100 to-rose-50",
+  "from-lime-100 to-yellow-50",
+  "from-indigo-100 to-slate-100",
+];
+
+function CatalogCard({ item, index = 0 }) {
+  const scents = item.scents || [];
+  return (
+    <article className="group relative flex flex-col overflow-hidden rounded-2xl bg-white ring-1 ring-ink/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-28px_rgba(11,27,58,.45)] hover:ring-aqua/30 sm:rounded-3xl">
+      <div className={`relative aspect-square bg-gradient-to-br p-3 sm:p-5 ${CARD_TINTS[index % CARD_TINTS.length]}`}>
+        <span className="pointer-events-none absolute inset-[18%] rounded-full bg-white/50 blur-2xl" />
+        <Image src={`/catalog/${item.img}.webp`} alt={item.name} width={480} height={480} loading="lazy" className={`relative h-full w-full object-contain drop-shadow-[0_14px_18px_rgba(11,27,58,.18)] transition duration-500 group-hover:scale-105 ${item.alt ? "group-hover:opacity-0" : ""}`} />
+        {item.alt && (
+          <Image src={`/catalog/${item.alt}.webp`} alt={item.altLabel ? `${item.name} – ${item.altLabel}` : `${item.name} 5 L`} width={480} height={480} loading="lazy" className="absolute inset-3 h-[calc(100%-1.5rem)] w-[calc(100%-1.5rem)] object-contain opacity-0 drop-shadow-[0_14px_18px_rgba(11,27,58,.18)] transition duration-500 group-hover:scale-105 group-hover:opacity-100 sm:inset-5 sm:h-[calc(100%-2.5rem)] sm:w-[calc(100%-2.5rem)]" />
+        )}
+        {item.code && (
+          <span className="absolute left-2.5 top-2.5 rounded-full bg-ink px-2.5 py-1 text-[10px] font-bold tracking-wider text-lemon sm:left-3 sm:top-3 sm:text-xs">{item.code}</span>
+        )}
+        {item.alt && (
+          <span className="absolute bottom-2.5 right-2.5 hidden rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-semibold text-ink/60 shadow-sm backdrop-blur sm:block">{item.altLabel ? `Hover: ${item.altLabel.toLowerCase()}` : "Also in 5 L"}</span>
+        )}
+      </div>
+
+      <div className="flex flex-1 flex-col p-3.5 sm:p-5">
+        <h3 className="font-display text-base leading-snug text-ink sm:text-lg">{item.name}</h3>
+        {item.note && <p className="mt-1.5 text-xs leading-relaxed text-ink/55 sm:text-sm">{item.note}</p>}
+
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {item.packs.map((p) => (
+            <span key={p} className="rounded-full bg-cream px-2 py-0.5 text-[10px] font-semibold text-ink/70 sm:px-2.5 sm:text-xs">{p}</span>
+          ))}
+        </div>
+
+        {scents.length > 0 && (
+          <p className="mt-3 text-[11px] leading-relaxed text-ink/50 sm:text-xs" title={scents.join(", ")}>
+            <span className="font-semibold text-aqua-deep">{scents.length} fragrances</span> · {scents.slice(0, 3).join(", ")}{scents.length > 3 ? "…" : ""}
+          </p>
+        )}
+
+        <a href="#quote" className="mt-auto flex items-center justify-between pt-4 text-xs font-semibold text-ink transition group-hover:text-aqua-deep sm:text-sm">
+          Get best price <Icon name="arrow" className="h-4 w-4 transition group-hover:translate-x-1" />
+        </a>
+      </div>
+    </article>
+  );
+}
+
+// Scrolls only the button's own row (never the page) so the button sits in the middle.
+function centerInRow(btn) {
+  const row = btn.parentElement;
+  const r = row.getBoundingClientRect();
+  const b = btn.getBoundingClientRect();
+  row.scrollTo({ left: row.scrollLeft + (b.left - r.left) - (r.width - b.width) / 2, behavior: "smooth" });
+}
+
+// Horizontal scroller with left/right arrows that appear only when there is more to scroll.
+function ScrollRow({ children, className = "", innerClassName = "", arrowClassName = "" }) {
+  const [el, setEl] = useState(null);
+  const [edges, setEdges] = useState({ left: false, right: false });
+
+  useEffect(() => {
+    if (!el) return;
+    const update = () =>
+      setEdges({ left: el.scrollLeft > 4, right: el.scrollLeft + el.clientWidth < el.scrollWidth - 4 });
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    Array.from(el.children).forEach((c) => ro.observe(c));
+    return () => {
+      el.removeEventListener("scroll", update);
+      ro.disconnect();
+    };
+  }, [el, children]);
+
+  const nudge = (dir) => el?.scrollBy({ left: dir * el.clientWidth * 0.6, behavior: "smooth" });
+
+  const arrow = (dir) => (
+    <button
+      type="button"
+      onClick={() => nudge(dir)}
+      aria-label={dir < 0 ? "Scroll left" : "Scroll right"}
+      className={`absolute top-1/2 z-10 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full bg-white text-ink shadow-md ring-1 ring-ink/10 transition hover:bg-cream ${dir < 0 ? "left-1" : "right-1"} ${
+        (dir < 0 ? edges.left : edges.right) ? "opacity-100" : "pointer-events-none opacity-0"
+      } ${arrowClassName}`}
+    >
+      <Icon name="arrow" className={`h-4 w-4 ${dir < 0 ? "rotate-180" : ""}`} />
+    </button>
+  );
+
+  return (
+    <div className={`relative ${className}`}>
+      {arrow(-1)}
+      <div ref={setEl} className={`flex overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${innerClassName}`}>
+        {children}
+      </div>
+      {arrow(1)}
+    </div>
+  );
+}
+
+function Catalogue() {
+  const [groupId, setGroupId] = useState(CATALOG[0].id);
+  const [catId, setCatId] = useState("all");
+  const group = CATALOG.find((g) => g.id === groupId);
+  const cats = catId === "all" ? group.cats : group.cats.filter((c) => c.id === catId);
+
+  const pickGroup = (id) => {
+    setGroupId(id);
+    setCatId("all");
+  };
+
+  return (
+    <section id="catalogue" className="relative overflow-hidden bg-cream py-13 md:py-20 ">
+      <div className="pointer-events-none absolute -right-40 top-20 h-96 w-96 rounded-full bg-aqua/10 blur-3xl" />
+      <div className="relative mx-auto max-w-7xl px-3 sm:px-6">
+        <SectionHead eyebrow="Complete catalogue" titleClassName="whitespace-nowrap text-[clamp(1.5rem,7.8vw,3rem)] sm:text-5xl" title="Every product we make." sub={`${CATALOG_COUNT} products across housekeeping, bulk concentrates and industrial chemicals.`} />
+
+        {/* Range tabs */}
+        <div data-reveal className="mt-10 flex justify-center">
+          <ScrollRow className="w-full max-w-max overflow-hidden rounded-full bg-white shadow-sm ring-1 ring-ink/5" innerClassName="gap-1 p-1" arrowClassName="h-7 w-7">
+            {CATALOG.map((g) => {
+              const n = g.cats.reduce((m, c) => m + c.items.length, 0);
+              const on = g.id === groupId;
+              return (
+                <button
+                  key={g.id}
+                  onClick={(e) => {
+                    pickGroup(g.id);
+                    centerInRow(e.currentTarget);
+                  }}
+                  className={`flex shrink-0 items-center gap-1.5 rounded-full px-3 py-2 text-[13px] font-semibold transition sm:gap-2 sm:px-6 sm:py-2.5 sm:text-sm ${on ? "bg-ink text-white shadow-lg shadow-ink/20" : "text-ink/60 hover:text-ink"}`}
+                >
+                  {g.label}
+                  <span className={`rounded-full px-1.5 py-0.5 text-[10px] sm:px-2 ${on ? "bg-lemon text-ink" : "bg-cream text-ink/50"}`}>{n}</span>
+                </button>
+              );
+            })}
+          </ScrollRow>
+        </div>
+        <p className="mt-4 text-center text-sm text-ink/55">{group.blurb}</p>
+
+        {/* Category chips */}
+        {group.cats.length > 1 && (
+          <ScrollRow className="mt-8" innerClassName="gap-2 py-1 sm:flex-wrap sm:justify-center">
+            {[{ id: "all", label: "All", icon: "sparkles", items: group.cats.flatMap((c) => c.items) }, ...group.cats].map((c) => {
+              const on = c.id === catId;
+              return (
+                <button
+                  key={c.id}
+                  onClick={(e) => {
+                    setCatId(c.id);
+                    centerInRow(e.currentTarget);
+                  }}
+                  className={`flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition ${on ? "border-aqua-deep bg-aqua-deep text-white" : "border-ink/10 bg-white text-ink/70 hover:border-ink/30"}`}>
+                  <Icon name={c.icon} className="h-4 w-4" />
+                  {c.label}
+                  <span className={on ? "text-white/70" : "text-ink/35"}>{c.items.length}</span>
+                </button>
+              );
+            })}
+          </ScrollRow>
+        )}
+
+        {/* Grid, grouped by category */}
+        <div key={`${groupId}-${catId}`} className="mt-10 animate-fade-up space-y-12">
+          {cats.map((c) => (
+            <div key={c.id}>
+              {cats.length > 1 && (
+                <div className="mb-5 flex items-center gap-3">
+                  <span className="grid h-9 w-9 place-items-center rounded-xl bg-ink text-lemon"><Icon name={c.icon} className="h-4 w-4" /></span>
+                  <h3 className="font-display text-xl text-ink sm:text-2xl">{c.label}</h3>
+                  <span className="h-px flex-1 bg-ink/10" />
+                  <span className="text-sm text-ink/40">{c.items.length} products</span>
+                </div>
+              )}
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4">
+                {c.items.map((item, i) => <CatalogCard key={item.img} item={item} index={i} />)}
+              </div>
+            </div>
           ))}
         </div>
       </div>
@@ -558,7 +980,7 @@ function Fragrances() {
 
         <div data-reveal className="relative">
           <div className="relative aspect-[1517/1037] overflow-hidden rounded-[2rem] shadow-[0_40px_80px_-30px_rgba(0,0,0,.6)] ring-8 ring-white/5 sm:rounded-[2.5rem]">
-            <Image src="/products/air-freshener.png" alt="ASMI air freshener lineup" fill sizes="(min-width:1024px) 55vw, 100vw" className="object-cover" />
+            <Image src="/products/air-freshener.webp" alt="ASMI air freshener lineup" fill sizes="(min-width:1024px) 55vw, 100vw" className="object-cover" />
           </div>
           <div className="absolute -bottom-5 left-1/2 flex -translate-x-1/2 gap-1.5 rounded-full bg-white p-1.5 shadow-2xl sm:-bottom-6 sm:gap-2 sm:p-2">
             {FRAGRANCES.map((fr, i) => (
@@ -615,7 +1037,7 @@ function Process() {
       <div className="pointer-events-none absolute -right-32 bottom-0 h-96 w-96 animate-blob rounded-full bg-lemon/25 blur-3xl [animation-delay:-9s]" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
-        <SectionHead eyebrow="How it's made" title="From formula to your doorstep." sub="Four careful steps between our factory floor and your shelf." />
+        <SectionHead wide titleClassName="whitespace-nowrap text-[clamp(1.25rem,5.8vw,3rem)]" eyebrow="How it's made" title="From formula to your doorstep." sub="Four careful steps between our factory floor and your shelf." />
 
         <ol data-reveal className="relative mt-12 grid gap-4 sm:mt-20 sm:gap-8 lg:grid-cols-4 lg:gap-6" onMouseLeave={() => setPaused(false)}>
           {/* Connector — desktop (horizontal) */}
@@ -697,14 +1119,14 @@ function Industries() {
   ];
 
   return (
-    <section id="industries" className="relative overflow-hidden bg-ink py-24 text-white sm:py-32">
+    <section id="industries" className="relative overflow-hidden bg-ink py-24 text-white ">
       {/* Ambient background */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.04)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_at_top,black_20%,transparent_70%)]" />
       <div className="pointer-events-none absolute left-1/2 top-0 h-[28rem] w-[56rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-aqua/25 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-40 -right-20 h-96 w-96 animate-blob rounded-full bg-violet-500/15 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
-        <SectionHead dark eyebrow="Industries we serve" title="Trusted wherever clean matters." sub="From five-star lobbies to factory floors — the right formula, in the right pack size, for every space." />
+        <SectionHead dark wide titleClassName="whitespace-nowrap text-[clamp(1.25rem,5.6vw,3rem)]" eyebrow="Industries we serve" title="Trusted wherever clean matters." sub="From five-star lobbies to factory floors — the right formula, in the right pack size, for every space." />
 
         <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {list.map((l, i) => (
@@ -830,10 +1252,10 @@ function TestimonialCard({ t }) {
 
 function Testimonials() {
   return (
-    <section id="reviews" className="relative overflow-hidden bg-cream py-24 sm:py-32">
+    <section id="reviews" className="relative overflow-hidden bg-cream py-20">
       <div className="pointer-events-none absolute left-1/2 top-1/3 h-96 w-[48rem] -translate-x-1/2 rounded-full bg-aqua/10 blur-3xl" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
-        <SectionHead eyebrow="Customer love" title="Loved by businesses and homes." sub="What our customers say about us on Google, Facebook and Instagram." />
+        <SectionHead wide titleClassName="text-4xl sm:text-5xl lg:whitespace-nowrap" eyebrow="Customer love" title="Loved by businesses and homes." sub="What our customers say about us on Google, Facebook and Instagram." />
         <div data-reveal className="mt-8 flex flex-wrap items-center justify-center gap-3">
           {["google", "facebook", "instagram"].map((p) => (
             <span key={p} className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold capitalize text-ink shadow-sm ring-1 ring-ink/5">
@@ -863,18 +1285,20 @@ function Faq() {
         <div className="lg:sticky lg:top-28 lg:self-start">
           <SectionHead center={false} eyebrow="FAQ" title="Questions, answered." sub="Everything you need to know about ordering from Asmi." />
 
-          <div data-reveal className="relative mt-10 overflow-hidden rounded-3xl bg-ink p-7 text-white">
+          <div data-reveal className="relative mt-10 overflow-hidden rounded-3xl bg-ink p-5 text-white sm:p-7">
             <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-aqua/30 blur-2xl" />
             <span className="relative grid h-12 w-12 place-items-center rounded-2xl bg-lemon text-ink">
               <Icon name="phone" className="h-5 w-5" />
             </span>
             <p className="relative mt-5 font-display text-2xl">Still have questions?</p>
             <p className="relative mt-1 text-white/60">Talk to our team directly — we usually reply the same day.</p>
-            <div className="relative mt-6 flex flex-wrap gap-3">
-              <a href={`tel:${CONTACT.phone}`} className="inline-flex items-center gap-2 rounded-full bg-lemon px-5 py-2.5 text-sm font-semibold text-ink transition hover:-translate-y-0.5">
-                <Icon name="phone" className="h-4 w-4" /> {CONTACT.phoneDisplay}
+            <div className="relative mt-6 grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:gap-3">
+              <a href={`tel:${CONTACT.phone}`} aria-label={`Call ${CONTACT.phoneDisplay}`} className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-lemon px-4 py-2.5 text-sm font-semibold text-ink transition hover:-translate-y-0.5 sm:px-5">
+                <Icon name="phone" className="h-4 w-4 shrink-0" />
+                <span className="sm:hidden">Call now</span>
+                <span className="hidden sm:inline">{CONTACT.phoneDisplay}</span>
               </a>
-              <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5">
+              <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 sm:px-5">
                 <WhatsAppIcon className="h-4 w-4" /> WhatsApp
               </a>
             </div>
@@ -921,60 +1345,63 @@ function Quote() {
     setSent(true);
   };
 
-  const [lat, lng] = CONTACT.maps.split("q=")[1].split(",");
   const contacts = [
     { icon: "phone", label: "Call us", value: CONTACT.phoneDisplay, href: `tel:${CONTACT.phone}`, wide: true },
-    { icon: "mail", label: "Email us", value: CONTACT.email, href: `mailto:${CONTACT.email}`, wide: true },
+    { icon: "mail", label: "Email us", value: CONTACT.email, href: `mailto:${CONTACT.email}`, wide: true, breakAll: true },
     { icon: "pin", label: "Visit our unit", value: CONTACT.address, href: CONTACT.maps, wide: true },
     { icon: "shield", label: `GSTIN · ${CONTACT.ceo}`, value: CONTACT.gst, wide: true },
   ];
 
   return (
-    <section id="quote" className="relative overflow-hidden bg-cream py-24 sm:py-32">
+    <section id="quote" className="relative overflow-hidden bg-cream py-20 ">
       <div className="pointer-events-none absolute -right-40 top-0 h-[30rem] w-[30rem] rounded-full bg-aqua/15 blur-3xl" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHead eyebrow="Get instant quote" title="Let's talk about your order." sub="Tell us what you need — we'll send the best price right away." />
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-[1fr_1.15fr]">
+        <div className="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
           {/* Left: contact details + map */}
           <div data-reveal className="flex flex-col gap-6">
-            <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-ink via-[#12306b] to-aqua-deep p-7 text-white sm:p-8">
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-ink via-[#12306b] to-aqua-deep p-4 text-white sm:rounded-[2rem] sm:p-8">
               <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-lemon/25 blur-3xl" />
-              <p className="relative text-xs font-semibold uppercase tracking-[0.25em] text-lemon">Reach us</p>
-              <p className="relative mt-2 font-display text-3xl">We&apos;re one call away.</p>
-              <div className="relative mt-7 grid gap-3 sm:grid-cols-2">
+              <p className="relative px-1 text-xs font-semibold uppercase tracking-[0.25em] text-lemon sm:px-0">Reach us</p>
+              <p className="relative mt-2 px-1 font-display text-2xl sm:px-0 sm:text-3xl">We&apos;re one call away.</p>
+              <div className="relative mt-5 grid grid-cols-1 gap-2.5 sm:mt-7 sm:grid-cols-2 sm:gap-3">
                 {contacts.map((c) => {
                   const Tag = c.href ? "a" : "div";
                   return (
-                    <Tag key={c.label} {...(c.href ? { href: c.href, target: c.href.startsWith("http") ? "_blank" : undefined, rel: "noreferrer" } : {})} className={`group flex items-start gap-4 rounded-2xl bg-white/[0.06] p-4 ring-1 ring-white/10 transition hover:bg-white/10 ${c.wide ? "sm:col-span-2" : ""}`}>
-                      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/10 text-lemon transition group-hover:bg-lemon group-hover:text-ink">
-                        <Icon name={c.icon} />
+                    <Tag key={c.label} {...(c.href ? { href: c.href, target: c.href.startsWith("http") ? "_blank" : undefined, rel: "noreferrer" } : {})} className={`group flex min-w-0 items-center gap-3 rounded-2xl bg-white/[0.06] p-3 ring-1 ring-white/10 transition hover:bg-white/10 sm:items-start sm:gap-4 sm:p-4 ${c.wide ? "sm:col-span-2" : ""}`}>
+                      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white/10 text-lemon transition group-hover:bg-lemon group-hover:text-ink sm:h-11 sm:w-11">
+                        <Icon name={c.icon} className="h-[18px] w-[18px] sm:h-5 sm:w-5" />
                       </span>
                       <span className="min-w-0">
-                        <span className="block text-xs text-white/55">{c.label}</span>
-                        <span className="block break-words font-semibold leading-snug">{c.value}</span>
+                        <span className="block text-[11px] text-white/55 sm:text-xs">{c.label}</span>
+                        <span className={`block text-[15px] font-semibold leading-snug sm:text-base ${c.breakAll ? "break-all" : "break-words"}`}>{c.value}</span>
                       </span>
                     </Tag>
                   );
                 })}
               </div>
-              <p className="relative mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-white/60">
-                <span>Also call:</span>
-                {CONTACT.otherPhones.map((p) => (
-                  <a key={p.tel} href={`tel:${p.tel}`} className="font-semibold text-white/85 underline decoration-white/25 underline-offset-4 hover:text-lemon">{p.display}</a>
-                ))}
-              </p>
+              <div className="relative mt-4 px-1 sm:px-0">
+                <p className="text-xs text-white/55">Also call</p>
+                <div className="mt-2 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
+                  {CONTACT.otherPhones.map((p) => (
+                    <a key={p.tel} href={`tel:${p.tel}`} className="flex items-center justify-center gap-1.5 rounded-full bg-white/10 px-3 py-2 text-[13px] font-semibold text-white ring-1 ring-white/15 transition hover:bg-lemon hover:text-ink sm:px-4 sm:text-sm">
+                      <Icon name="phone" className="h-3.5 w-3.5 shrink-0" /> {p.display}
+                    </a>
+                  ))}
+                </div>
+              </div>
             </div>
 
-            <div className="relative min-h-[16rem] flex-1 overflow-hidden rounded-[2rem] ring-1 ring-ink/10">
+            <div className="relative min-h-[15rem] flex-1 overflow-hidden rounded-3xl ring-1 ring-ink/10 sm:min-h-[16rem] sm:rounded-[2rem]">
               <iframe
                 title="Asmi Enterprises location"
-                src={`https://maps.google.com/maps?q=${lat},${lng}&z=15&output=embed`}
+                src={MAP_EMBED}
                 className="absolute inset-0 h-full w-full grayscale-[30%]"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
-              <a href={CONTACT.maps} target="_blank" rel="noreferrer" className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-ink shadow-lg transition hover:-translate-y-0.5">
+              <a href={CONTACT.maps} target="_blank" rel="noreferrer" className="absolute bottom-3 left-3 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-2 text-xs font-semibold sm:bottom-4 sm:left-4 sm:px-4 sm:text-sm text-ink shadow-lg transition hover:-translate-y-0.5">
                 <Icon name="pin" className="h-4 w-4 text-aqua-deep" /> Open in Google Maps
               </a>
             </div>
@@ -993,7 +1420,7 @@ function Quote() {
                 <button onClick={() => setSent(false)} className="mt-6 text-sm font-semibold text-aqua-deep underline underline-offset-4">Send another</button>
               </div>
             ) : (
-              <form onSubmit={onSubmit} className="grid gap-5 sm:grid-cols-2">
+              <form onSubmit={onSubmit} className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div className="sm:col-span-2">
                   <p className="font-display text-2xl text-ink">Request a quote</p>
                   <p className="mt-1 text-sm text-ink/55">Fields marked * are required.</p>
@@ -1004,8 +1431,15 @@ function Quote() {
                 <Field label="Delivery city" name="city" />
                 <label className="sm:col-span-2">
                   <span className="mb-1.5 block text-sm font-medium text-ink/70">Product</span>
-                  <select name="product" className="w-full rounded-2xl border border-ink/10 bg-cream px-4 py-3.5 text-ink outline-none transition focus:border-aqua focus:bg-white focus:ring-4 focus:ring-aqua/15">
-                    {FULL_RANGE.map((r) => <option key={r}>{r}</option>)}
+                  <select name="product" className="w-full min-w-0 max-w-full truncate rounded-2xl border border-ink/10 bg-cream px-4 py-3.5 text-ink outline-none transition focus:border-aqua focus:bg-white focus:ring-4 focus:ring-aqua/15">
+                    {CATALOG.map((g) => (
+                      <optgroup key={g.id} label={g.label}>
+                        {g.cats.flatMap((c) => c.items).map((it) => {
+                          const label = it.code ? `${it.code} · ${it.name}` : it.name;
+                          return <option key={it.img}>{label}</option>;
+                        })}
+                      </optgroup>
+                    ))}
                   </select>
                 </label>
                 <fieldset className="sm:col-span-2">
@@ -1102,14 +1536,14 @@ function Footer() {
 export default function Home() {
   useReveal();
   return (
-    <main className="overflow-x-hidden bg-cream font-sans text-ink antialiased">
+    <main className="overflow-x-clip bg-cream font-sans text-ink antialiased">
       <Navbar />
       <Hero />
       <Marquee />
       <Stats />
-      <About />
-  
       <Products />
+      <About />
+      <Catalogue />
       <Fragrances />
       <Process />
       <Industries />

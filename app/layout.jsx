@@ -9,7 +9,7 @@ export const metadata = {
   description:
     "Manufacturer & wholesaler of liquid hand wash, hand wash gel, shower gel, dish wash, toilet & tap cleaners, air fresheners and industrial chemicals. Bulk orders & instant quotes.",
     icons:{
-      icon:"/logo.png"
+      icon:"/logo.webp"
     }
 };
 
