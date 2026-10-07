@@ -413,6 +413,7 @@ function Navbar() {
 const BANNERS = [
   { desktop: "/products/desktopbanner.webp", mobile: "/products/mobilebanner.webp", alt: "Asmi Enterprises cleaning products" },
   { desktop: "/products/desktopbannertwo.webp", mobile: "/products/mobilebannertwo.webp", alt: "Asmi Enterprises product range" },
+  { desktop: "/products/desktopbannerthree.webp", mobile: "/products/mobilebannerthree.webp", alt: "Asmi Enterprises cleaning solutions" },
 ];
 
 function Hero() {
@@ -431,10 +432,10 @@ function Hero() {
     setPos(n);
   };
 
-  // Autoplay every 3 seconds, always forward.
+  // Autoplay every 5 seconds, always forward.
   useEffect(() => {
     if (paused || count < 2) return;
-    const id = setTimeout(() => go(pos + 1), 3000);
+    const id = setTimeout(() => go(pos + 1), 5000);
     return () => clearTimeout(id);
   }, [pos, paused, count]);
 
@@ -1104,6 +1105,92 @@ function Process() {
   );
 }
 
+/* ───────────────────────────── 9b. In-house lab ───────────────────────────── */
+
+function Lab() {
+  // The five checks listed on the Quality Control board in our lab.
+  const checks = [
+    { icon: "leaf", title: "Raw material testing", desc: "Incoming raw materials are checked before they go into a batch." },
+    { icon: "drop", title: "pH measurement", desc: "Each formula is measured against its target pH range." },
+    { icon: "flask", title: "Viscosity check", desc: "Thickness is checked so every bottle pours and feels the same." },
+    { icon: "sparkles", title: "Performance testing", desc: "Cleaning power and fragrance are tested on real surfaces." },
+    { icon: "award", title: "Final approval", desc: "The batch is signed off by the lab before packing." },
+  ];
+
+  const photo = (
+    <div data-reveal className="relative">
+      <div className="relative aspect-[16/9] overflow-hidden shadow-[0_40px_80px_-40px_rgba(11,27,58,.5)] lg:rounded-[2rem] lg:ring-1 lg:ring-ink/10">
+        <Image src="/products/labimage.webp" alt="Asmi Enterprises in-house quality control lab" fill sizes="(min-width:1024px) 55vw, 100vw" className="object-cover transition duration-[1.5s] hover:scale-105" />
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink/50 to-transparent" />
+        <span className="absolute left-5 top-5 hidden items-center gap-2 rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold text-ink shadow-lg backdrop-blur lg:inline-flex">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+          </span>
+          In-house QC lab
+        </span>
+      </div>
+
+      {/* Floating stat */}
+      <div className="absolute -bottom-8 right-8 hidden items-center gap-3 rounded-2xl bg-white px-5 py-4 shadow-xl ring-1 ring-ink/5 lg:flex">
+        <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 text-white shadow-lg shadow-emerald-500/30 sm:h-12 sm:w-12">
+          <Icon name="shield" className="h-5 w-5 sm:h-6 sm:w-6" />
+        </span>
+        <span className="leading-tight">
+          <span className="block font-display text-xl text-ink sm:text-2xl">5-step</span>
+          <span className="block text-[11px] font-medium text-ink/55 sm:text-xs">quality check</span>
+        </span>
+      </div>
+    </div>
+  );
+
+  return (
+    <section id="lab" className="relative overflow-hidden bg-gradient-to-b from-white to-sky-50/60 py-16 sm:py-24">
+      <div className="pointer-events-none absolute -left-32 top-24 h-96 w-96 rounded-full bg-aqua/15 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 bottom-10 h-80 w-80 rounded-full bg-lemon/20 blur-3xl" />
+
+      <div className="relative mx-auto grid max-w-[90rem] items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14 lg:px-8">
+        {/* Photo (desktop) */}
+        <div className="hidden lg:block">{photo}</div>
+
+        {/* Text + checklist */}
+        <div>
+          <div data-reveal>
+            <Eyebrow>Our in-house lab</Eyebrow>
+            <h2 className="mt-4 whitespace-nowrap font-display text-[clamp(1.6rem,7.5vw,3rem)] leading-[1.05] tracking-tight text-ink lg:text-[clamp(1.9rem,3vw,3rem)]">
+              Tested in <span className="text-aqua-deep">our own lab.</span>
+            </h2>
+            <p className="mt-4 leading-relaxed text-ink/65 sm:text-lg">
+              Our quality control lab tests formulas from raw material to finished product, so every bottle and can
+              performs the way it should.
+            </p>
+            {/* Photo (mobile & tablet: right after the intro paragraph) */}
+            <div className="mt-6 lg:hidden">{photo}</div>
+          </div>
+
+          <ol className="relative mt-8 space-y-3">
+            <span className="absolute bottom-6 left-[1.375rem] top-6 w-px bg-gradient-to-b from-aqua via-emerald-300 to-lemon sm:left-6" />
+            {checks.map((c, i) => (
+              <li key={c.title} data-reveal style={{ transitionDelay: `${i * 80}ms` }} className="group relative flex items-start gap-4 rounded-2xl p-2 transition hover:bg-white hover:shadow-[0_16px_40px_-24px_rgba(11,27,58,.35)] sm:p-3">
+                <span className="relative z-10 grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white text-aqua-deep shadow-md ring-1 ring-ink/5 transition duration-300 group-hover:scale-110 group-hover:bg-aqua-deep group-hover:text-white sm:h-12 sm:w-12">
+                  <Icon name={c.icon} className="h-5 w-5" />
+                </span>
+                <div className="min-w-0 pt-0.5">
+                  <p className="flex items-center gap-2 font-display text-lg text-ink">
+                    <span className="text-xs font-sans font-bold text-aqua-deep/60">{String(i + 1).padStart(2, "0")}</span>
+                    {c.title}
+                  </p>
+                  <p className="mt-0.5 text-sm leading-relaxed text-ink/60">{c.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ───────────────────────────── 10. Industries ───────────────────────────── */
 
 function Industries() {
@@ -1546,6 +1633,7 @@ export default function Home() {
       <Catalogue />
       <Fragrances />
       <Process />
+      <Lab />
       <Industries />
       <Testimonials />
       <Faq />
