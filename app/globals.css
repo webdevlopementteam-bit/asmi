@@ -57,3 +57,8 @@ body {
   }
   [data-reveal] { opacity: 1; transform: none; }
 }
+
+/* Keep anchored sections clear of the sticky navbar */
+section[id] {
+  scroll-margin-top: 6rem;
+}
