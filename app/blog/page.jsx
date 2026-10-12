@@ -1,4 +1,4 @@
-import { PageHeader, BlogIndex } from "../components/site";
+import { BlogIndex } from "../components/site";
 
 export const metadata = {
   title: "Blog",
@@ -6,10 +6,5 @@ export const metadata = {
 };
 
 export default function BlogPage() {
-  return (
-    <>
-      <PageHeader crumb="Blog" eyebrow="Guides & tips" title="Asmi blog" sub="Practical guides on using our cleaning concentrates and industrial chemicals." />
-      <BlogIndex />
-    </>
-  );
+  return <BlogIndex />;
 }

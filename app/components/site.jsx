@@ -693,7 +693,6 @@ export function About() {
 /* ───────────────────────────── 5. Product showcase ───────────────────────────── */
 
 export function Products() {
-  const quoteHref = useQuoteHref();
   return (
     <section id="products" className="bg-white py:17 md:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
@@ -713,9 +712,9 @@ export function Products() {
                 <div className="mt-auto pt-5">
                   <div className="flex items-center justify-between border-t border-ink/10 pt-4 text-sm font-semibold">
                     <Link href={`/products/${p.slug}/`} className="text-ink transition hover:text-aqua-deep">View details</Link>
-                    <a href={quoteHref} className="inline-flex items-center gap-1 text-aqua-deep transition hover:text-ink">
+                    <Link href={`/contact/?product=${p.slug}#quote`} className="inline-flex items-center gap-1 text-aqua-deep transition hover:text-ink">
                       Get best price <Icon name="arrow" className="h-4 w-4 transition group-hover:translate-x-1" />
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -742,7 +741,6 @@ const CARD_TINTS = [
 ];
 
 function CatalogCard({ item, index = 0 }) {
-  const quoteHref = useQuoteHref();
   const scents = item.scents || [];
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-2xl bg-white ring-1 ring-ink/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-28px_rgba(11,27,58,.45)] hover:ring-aqua/30 sm:rounded-3xl">
@@ -780,9 +778,9 @@ function CatalogCard({ item, index = 0 }) {
 
         <div className="mt-auto flex items-center justify-between gap-2 pt-4 text-xs font-semibold sm:text-sm">
           <Link href={`/products/${item.slug}/`} className="text-ink transition hover:text-aqua-deep">View details</Link>
-          <a href={quoteHref} className="inline-flex items-center gap-1 text-aqua-deep transition hover:text-ink">
+          <Link href={`/contact/?product=${item.slug}#quote`} className="inline-flex items-center gap-1 text-aqua-deep transition hover:text-ink">
             Quote <Icon name="arrow" className="h-4 w-4 transition group-hover:translate-x-1" />
-          </a>
+          </Link>
         </div>
       </div>
     </article>
@@ -1758,22 +1756,90 @@ export function ProductDetail({ slug }) {
 
 /* ───────────────────────────── Blog ───────────────────────────── */
 
-function PostCard({ post, featured = false }) {
+// Colour + icon per blog category, used for covers and pills.
+const BLOG_THEME = {
+  Housekeeping: { icon: "home", grad: "from-sky-200 via-sky-100 to-violet-100", pill: "bg-sky-100 text-sky-800", dot: "bg-sky-500" },
+  Industrial: { icon: "factory", grad: "from-amber-100 via-orange-50 to-rose-100", pill: "bg-amber-100 text-amber-800", dot: "bg-amber-500" },
+};
+const themeFor = (cat) => BLOG_THEME[cat] || BLOG_THEME.Housekeeping;
+
+function PostCover({ post, className = "", big = false }) {
+  const t = themeFor(post.category);
   return (
-    <article className={`group flex overflow-hidden rounded-3xl bg-white ring-1 ring-ink/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-28px_rgba(11,27,58,.4)] ${featured ? "flex-col lg:col-span-2 lg:flex-row" : "flex-col"}`}>
-      <Link href={`/blog/${post.slug}/`} className={`relative block shrink-0 bg-gradient-to-br ${post.tint} ${featured ? "aspect-[16/10] lg:aspect-auto lg:w-1/2" : "aspect-[16/10]"}`}>
-        <span className="pointer-events-none absolute inset-[20%] rounded-full bg-white/60 blur-2xl" />
-        <Image src={`/catalog/${post.cover}.webp`} alt="" fill sizes="(min-width:1024px) 40vw, 100vw" className="object-contain p-8 drop-shadow-[0_18px_22px_rgba(11,27,58,.2)] transition duration-500 group-hover:scale-105" />
-        <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-aqua-deep shadow-sm">{post.category}</span>
+    <div className={`relative overflow-hidden bg-gradient-to-br ${t.grad} ${className}`}>
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgba(11,27,58,.08)_1px,transparent_1px)] [background-size:16px_16px]" />
+      <Icon name={t.icon} className={`pointer-events-none absolute -left-6 -top-6 text-ink/[0.06] ${big ? "h-56 w-56" : "h-40 w-40"}`} />
+      <span className="pointer-events-none absolute bottom-[-20%] right-[-10%] h-[80%] w-[70%] rounded-full bg-white/60 blur-3xl" />
+      <Image src={`/catalog/${post.cover}.webp`} alt="" fill sizes={big ? "(min-width:1024px) 45vw, 100vw" : "(min-width:768px) 33vw, 100vw"} className="object-contain object-right-bottom p-6 drop-shadow-[0_20px_24px_rgba(11,27,58,.22)] transition duration-700 group-hover:scale-105 group-hover:-rotate-2 sm:p-8" />
+    </div>
+  );
+}
+
+function PostMeta({ post, light = false }) {
+  return (
+    <p className={`flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-medium ${light ? "text-white/70" : "text-ink/50"}`}>
+      <span>{formatDate(post.date)}</span>
+      <span aria-hidden="true">•</span>
+      <span>{post.readTime}</span>
+    </p>
+  );
+}
+
+function PostCard({ post }) {
+  const t = themeFor(post.category);
+  return (
+    <article className="group flex flex-col overflow-hidden rounded-3xl bg-white ring-1 ring-ink/5 transition duration-500 hover:-translate-y-1.5 hover:shadow-[0_30px_60px_-30px_rgba(11,27,58,.45)]">
+      <Link href={`/blog/${post.slug}/`} className="relative block">
+        <PostCover post={post} className="aspect-[16/10]" />
+        <span className={`absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold shadow-sm ${t.pill}`}>
+          <span className={`h-1.5 w-1.5 rounded-full ${t.dot}`} /> {post.category}
+        </span>
       </Link>
-      <div className="flex flex-1 flex-col p-6 sm:p-7">
-        <p className="text-xs font-medium text-ink/45">{formatDate(post.date)} · {post.readTime}</p>
-        <h2 className={`mt-2 font-display leading-snug text-ink ${featured ? "text-2xl sm:text-3xl" : "text-xl"}`}>
+      <div className="flex flex-1 flex-col p-6">
+        <PostMeta post={post} />
+        <h3 className="mt-2 font-display text-xl leading-snug text-ink">
+          <Link href={`/blog/${post.slug}/`} className="bg-gradient-to-r from-aqua-deep to-aqua-deep bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-all duration-500 group-hover:bg-[length:100%_2px]">{post.title}</Link>
+        </h3>
+        <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-ink/60">{post.excerpt}</p>
+        <div className="mt-auto flex items-center justify-between pt-6">
+          <span className="flex items-center gap-2 text-xs font-semibold text-ink/70">
+            <Image src="/logo.webp" alt="" width={600} height={212} className="h-5 w-auto" /> Asmi team
+          </span>
+          <Link href={`/blog/${post.slug}/`} aria-label={`Read ${post.title}`} className="grid h-10 w-10 place-items-center rounded-full bg-cream text-ink transition group-hover:bg-ink group-hover:text-white">
+            <Icon name="arrow" className="h-4 w-4 -rotate-45 transition group-hover:rotate-0" />
+          </Link>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function FeaturedPost({ post }) {
+  const t = themeFor(post.category);
+  return (
+    <article data-reveal className="group relative grid overflow-hidden rounded-[2rem] bg-white shadow-[0_40px_80px_-45px_rgba(11,27,58,.45)] ring-1 ring-ink/5 lg:grid-cols-2">
+      <Link href={`/blog/${post.slug}/`} className="relative block">
+        <PostCover post={post} big className="aspect-[16/11] h-full lg:aspect-auto lg:min-h-[26rem]" />
+      </Link>
+      <div className="flex flex-col justify-center p-6 sm:p-10 lg:p-12">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-ink px-3 py-1 text-xs font-semibold text-lemon">
+            <Icon name="sparkles" className="h-3.5 w-3.5" /> Featured
+          </span>
+          <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${t.pill}`}>
+            <span className={`h-1.5 w-1.5 rounded-full ${t.dot}`} /> {post.category}
+          </span>
+        </div>
+        <h2 className="mt-5 font-display text-[clamp(1.6rem,4vw,2.5rem)] leading-[1.12] tracking-tight text-ink">
           <Link href={`/blog/${post.slug}/`} className="hover:text-aqua-deep">{post.title}</Link>
         </h2>
-        <p className="mt-3 leading-relaxed text-ink/60">{post.excerpt}</p>
-        <Link href={`/blog/${post.slug}/`} className="mt-auto inline-flex items-center gap-2 pt-5 text-sm font-semibold text-ink transition group-hover:text-aqua-deep">
-          Read article <Icon name="arrow" className="h-4 w-4 transition group-hover:translate-x-1" />
+        <p className="mt-4 text-base leading-relaxed text-ink/65 sm:text-lg">{post.excerpt}</p>
+        <div className="mt-6"><PostMeta post={post} /></div>
+        <Link href={`/blog/${post.slug}/`} className="mt-7 inline-flex w-fit items-center gap-3 rounded-full bg-ink py-2 pl-6 pr-2 text-sm font-semibold text-white transition hover:-translate-y-0.5">
+          Read the guide
+          <span className="grid h-8 w-8 place-items-center rounded-full bg-lemon text-ink transition group-hover:translate-x-0.5">
+            <Icon name="arrow" className="h-4 w-4" />
+          </span>
         </Link>
       </div>
     </article>
@@ -1781,14 +1847,75 @@ function PostCard({ post, featured = false }) {
 }
 
 export function BlogIndex() {
-  const [first, ...rest] = POSTS;
+  const [featured, ...rest] = POSTS;
+
   return (
-    <section className="bg-cream pb-16 sm:pb-24">
-      <div className="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-2">
-        {first && <PostCard post={first} featured />}
-        {rest.map((p) => <PostCard key={p.slug} post={p} />)}
-      </div>
-    </section>
+    <>
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-sky-50 via-cream to-lemon/20 pb-10 pt-10 sm:pb-14 sm:pt-14">
+        <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-aqua/20 blur-3xl" />
+        <div className="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-lemon/30 blur-3xl" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-medium text-ink/50">
+            <Link href="/" className="hover:text-ink">Home</Link>
+            <span aria-hidden="true">/</span>
+            <span className="text-ink">Blog</span>
+          </nav>
+          <div className="mt-6">
+            <div>
+              <Eyebrow>Guides &amp; insights</Eyebrow>
+              <h1 className="mt-4 font-display text-[clamp(2.25rem,7vw,4.25rem)] leading-[1.02] tracking-tight text-ink">
+                Know your <span className="text-aqua-deep">chemistry.</span>
+              </h1>
+              <p className="mt-4 max-w-xl text-base leading-relaxed text-ink/60 sm:text-lg">
+                Practical, no-nonsense guides on using our cleaning concentrates and industrial chemicals the right way.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Posts */}
+      <section className="bg-cream pb-16 pt-10 sm:pb-24 sm:pt-12">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          {featured && <FeaturedPost post={featured} />}
+          {rest.length > 0 && (
+            <>
+              <div className="mb-6 mt-14 flex items-center gap-4">
+                <h2 className="font-display text-2xl text-ink sm:text-3xl">Latest guides</h2>
+                <span className="h-px flex-1 bg-ink/10" />
+              </div>
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {rest.map((p) => <PostCard key={p.slug} post={p} />)}
+              </div>
+            </>
+          )}
+
+          {/* Ask us */}
+          <div data-reveal className="relative mt-16 overflow-hidden rounded-[2rem] bg-gradient-to-br from-sky-100 via-white to-lemon/30 p-7 ring-1 ring-ink/5 sm:p-10">
+            <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-aqua/20 blur-3xl" />
+            <div className="relative flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+              <div className="flex items-start gap-4">
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-ink text-lemon"><Icon name="flask" className="h-5 w-5" /></span>
+                <div>
+                  <p className="font-display text-2xl text-ink">Got a question about a product?</p>
+                  <p className="mt-1 text-ink/60">Ask us about dosage, dilution or the right chemical for your plant.</p>
+                </div>
+              </div>
+              <div className="flex shrink-0 flex-wrap gap-3">
+                <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5">
+                  <WhatsAppIcon className="h-4 w-4" /> Ask on WhatsApp
+                </a>
+                <Link href="/contact/" className="inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5">
+                  Contact us <Icon name="arrow" className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
 
@@ -1851,10 +1978,7 @@ export function BlogPost({ slug }) {
           <h1 className="mt-4 font-display text-[clamp(1.9rem,5.5vw,3rem)] leading-[1.1] tracking-tight text-ink">{post.title}</h1>
           <p className="mt-4 text-sm text-ink/50">{formatDate(post.date)} · {post.readTime} · Asmi Enterprises</p>
 
-          <div className={`relative mt-8 aspect-[16/9] overflow-hidden rounded-3xl bg-gradient-to-br ${post.tint}`}>
-            <span className="pointer-events-none absolute inset-[20%] rounded-full bg-white/60 blur-3xl" />
-            <Image src={`/catalog/${post.cover}.webp`} alt="" fill priority sizes="(min-width:768px) 48rem, 100vw" className="object-contain p-10 drop-shadow-[0_24px_30px_rgba(11,27,58,.22)]" />
-          </div>
+          <PostCover post={post} big className="mt-8 aspect-[16/9] rounded-3xl" />
 
           <div className="mt-4">{post.body.map((b, i) => <PostBlock key={i} b={b} />)}</div>
 
